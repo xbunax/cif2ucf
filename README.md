@@ -59,7 +59,7 @@ ucf = gen_ucf(struct, # file structure
 
 ```
 
-+ 生成UCF
++ generate ucf file
 
 ```python
 ucf = gen_ucf(struct, magmom, suppercell, energy, atom_name, save_path, cif_path, dimension, atom_type_num, mat, interaction_type)
