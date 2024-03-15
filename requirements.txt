@@ -1,4 +1,2 @@
-matplotlib==3.8.3
-mp_api==0.41.1
-numpy==1.26.4
-pymatgen==2024.3.1
+ase==3.22.1
+numpy==1.24.2

@@ -1,6 +1,8 @@
 # vampire
 [English] | [中文](README-cn.md)
-## UnitCellFile_2 
+## CIF2UCF 
+
+This project is related to [vampire](https://github.com/richard-evans/vampire) which can use `cif` file to generate `ucf` file.
 
 ### How to install
 
@@ -9,62 +11,37 @@ After `git clone` this repo, using command `pip install -r requirements.txt` to 
 ***
 
 ### How to use
-+ From this website [materialPoject](https://materialsproject.org) to download `cif` file then add the `cif` file path in `cif_path`.
++ config in `cif2ucf.py` then run `./cif2ucf.py`
 ```python
-cif_path = ' ' #cif file path
-struct = get_struct(path=cif_path).get_from_local()#get cif file path from local
-#or
-struct = get_struct(name_id="",api="").get_from_MPR()#get cif file path with api
+    cif_path = "" # cif file path
+    ucf_path = "" #generate ucf file path
+    atom_type=2 # how many atom types in crystal
+    mat = [0, 1, 1, 0] 
+    hc = [0, 0, 0, 0]
+    lc = [0, 0, 0, 0]
+    dimension = 3 
+    isotropic="isotropic" # whether isotropic or not
+    super_matrix = [3, 3, 3] #make supercell matrix  I only test [3,3,3]
+    exchange = [-10.88E-21, -14.62E-21, 4.18E-21] #set exchange enerage
+    n = 3 #set neighbor num if n=1 will only write the most neighbor atom 
+    magmom = {"atom1": 3.0, "atom2": 0.0} #set atom magmon
+    crystal = get_structure(cif_path).from_file()
+    origin_crystal = init_structure(
+        crystal, magmom, super_matrix).init_magmom()
+    super_crystal = make_supercell(origin_crystal, np.diag(super_matrix))
+    writeucf = writeucf(super_crystal, origin_crystal, ucf_path, magmom)
+    writeucf.write_Unit_cell_size() 
+    writeucf.write_Unit_cell_Vector(dimension)
+    writeucf.write_Atoms_num(atom_type,mat, lc, hc)
+    writeucf.write_interactions(exchange, n, isotropic)
 
 ```
 
-+ need to add parameters manually
+### Tips
 
-```python
-mat = [[1, 0, 0], 
-		[0, 0, 0], 
-		[0, 0, 0],
-		[1, 0, 0], 
-		[1, 0, 0],
-		[1, 0, 0]]
-#mat, corresponds to the atomic numbers in the mat file, format as follows
+> + This project is still in very early stage.
+> + I only test `Mn2Au.cif` to generate `Mn2Au.ucf` to calculate curie point, still need more tests.
+> + Welcome to contribute
 
-energy = [-10.88E-21,-14.62E-21, 4.18E-21]
-#exchangeEnergy，corresponds to J_1,J_2,J_3
 
-atom_type_num = 2
-#atom_type，corresponds to the number of atom types in the package
-
-interaction_type = 'isotropic' 
-#isotropic and anisotropic
-
-Dimension = 3 
-#The dimension parameter can be modified, this program can generate 2D or 3D ucf files
-
-save_path = '/Users/xbunax/Downloads/*.ucf'
-#File save path
-
-ucf = gen_ucf(struct, # file structure
-              magmom, # magnetic moment of atoms
-              suppercell, # supercell
-              energy, # interaction
-              atom_name, # lattice name
-              save_path, # save path
-              cif_path, # cif file path
-              dimension, # dimension
-              atom_type_num, # number of atom types in the lattice
-              mat,
-              interaction_type # type of interaction
-              )
-
-```
-
-+ generate ucf file
-
-```python
-ucf = gen_ucf(struct, magmom, suppercell, energy, atom_name, save_path, cif_path, dimension, atom_type_num, mat, interaction_type)
-# Get ucf object
-ucf.write_ucf_custom(n) # n=1 writes only the nearest neighbor, n=2 writes the nearest and next-nearest neighbors, and so on
-```
-***
 
