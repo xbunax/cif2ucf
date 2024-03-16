@@ -1,15 +1,16 @@
-from structure import get_structure, init_structure
+from structure import init_structure
 import numpy as np
+import ase
 
 
 class neighbor:
-    def __init__(self, super_crystal, origin_crystal, magmom, supercell_matrix=np.array([3, 3, 3])):
+    def __init__(self, super_crystal: ase.atoms.Atoms, origin_crystal: ase.atoms.Atoms, magmom: dict, supercell_matrix=np.array([3, 3, 3])):
         self.super_crystal = super_crystal
         self.origin_crystal = origin_crystal
         self.supercell_matrix = supercell_matrix
         self.magmom = magmom
 
-    def get_relative_index_and_position(self, atom_index):
+    def get_relative_index_and_position(self, atom_index: int) -> [int, np.array]:
         len_of_crystal = len(self.origin_crystal)
         sum_crystal = self.supercell_matrix[0] * \
             self.supercell_matrix[1]*self.supercell_matrix[2]
@@ -28,7 +29,7 @@ class neighbor:
             return len_of_crystal-1, position
         return (atom_index+1) % len_of_crystal-1, position
 
-    def get_center_crystal_index(self):
+    def get_center_crystal_index(self) -> list:
         origin_crystal_num_in_super_crystal = np.prod(self.supercell_matrix)
         len_of_origin_crystal = len(self.origin_crystal)
         center_index_start = int(
@@ -37,7 +38,7 @@ class neighbor:
             center_index_start, center_index_start+len_of_origin_crystal)]
         return center_index
 
-    def index_values_to_dict(self, lst):
+    def index_values_to_dict(self, lst: list) -> dict:
         result_dict = {}
         for index, value in enumerate(lst):
             if value in result_dict:
@@ -46,7 +47,7 @@ class neighbor:
                 result_dict[value] = [index]
         return result_dict
 
-    def get_neighbor_index(self, n):
+    def get_neighbor_index(self, n: int) -> np.array:
         supercell, distance_matrix = init_structure(
             self.origin_crystal, self.magmom, self.supercell_matrix).get_supercell_and_distance()
         center_index = self.get_center_crystal_index()
@@ -67,7 +68,7 @@ class neighbor:
                                     ][j] = np.array(sorted_distance_dict[neighbor_distance_list[j]])
         return neighbor_index_list
 
-    def get_neighbor_relative_index_and_position(self, n):
+    def get_neighbor_relative_index_and_position(self, n: int) -> list:
         neighbor_list = self.get_neighbor_index(n)
         row, col = neighbor_list.shape
         n = 0

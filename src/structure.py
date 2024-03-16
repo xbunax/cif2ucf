@@ -1,38 +1,39 @@
 from ase.io import read
+import ase
 import numpy as np
 from ase.build import make_supercell
 
 
 class get_structure:
-    def __init__(self, cif_path):
+    def __init__(self, cif_path: str):
         self.path = cif_path
 
-    def from_file(self):
+    def from_file(self) -> ase.atoms.Atoms:
         return read(self.path)
 
 
 class init_structure:
-    def __init__(self, structure, magmom, super_matrix):
-        self.structure = structure
+    def __init__(self, crystal: ase.atoms.Atoms, magmom: dict, super_matrix: list):
+        self.crystal = crystal
         self.magmom = magmom
         self.super_matrix = super_matrix
         self.structure_without_magmom_atom = self.init_magmom()
 
-    def init_magmom(self):
+    def init_magmom(self) -> ase.atoms.Atoms:
         magnetic_moments = []
-        for atom in self.structure:
+        for atom in self.crystal:
             for i in self.magmom:
                 if atom.symbol == i:
                     magnetic_moments.append(self.magmom[i])
-        self.structure.set_initial_magnetic_moments(magnetic_moments)
+        self.crystal.set_initial_magnetic_moments(magnetic_moments)
         indexes_to_remove = [i for i, magmom in enumerate(
-            self.structure.get_initial_magnetic_moments()) if magmom == 0.0]
+            self.crystal.get_initial_magnetic_moments()) if magmom == 0.0]
         for index in sorted(indexes_to_remove, reverse=True):
-            del self.structure[index]
-        structure_without_magmom = self.structure
+            del self.crystal[index]
+        structure_without_magmom = self.crystal
         return structure_without_magmom
 
-    def get_supercell_and_distance(self):
+    def get_supercell_and_distance(self) -> [ase.atoms.Atoms, np.array]:
         supercell_matrix = np.diag(self.super_matrix)
         supercell_matrix = np.diag(self.super_matrix)
         supercell = make_supercell(
