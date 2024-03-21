@@ -24,15 +24,6 @@
     exchange = [-10.88E-21, -14.62E-21, 4.18E-21] #设置相互作用强度，分别为最近邻、次近邻、次次近邻
     n = 3 #设置到几级近邻例如n=1是只写入最近邻
     magmom = {"atom1": 3.0, "atom2": 0.0} #设置原子磁矩
-    crystal = get_structure(cif_path).from_file()
-    origin_crystal = init_structure(
-        crystal, magmom, super_matrix).init_magmom()
-    super_crystal = make_supercell(origin_crystal, np.diag(super_matrix))
-    writeucf = writeucf(super_crystal, origin_crystal, ucf_path, magmom)
-    writeucf.write_Unit_cell_size() 
-    writeucf.write_Unit_cell_Vector(dimension)
-    writeucf.write_Atoms_num(atom_type,mat, lc, hc)
-    writeucf.write_interactions(exchange, n, isotropic)
 ```
 ### Tips
 > + 本项目仍在非常早期阶段，还需要不断完善

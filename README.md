@@ -25,16 +25,6 @@ After `git clone` this repo, using command `pip install -r requirements.txt` to 
     exchange = [-10.88E-21, -14.62E-21, 4.18E-21] #set exchange enerage
     n = 3 #set neighbor num if n=1 will only write the most neighbor atom 
     magmom = {"atom1": 3.0, "atom2": 0.0} #set atom magmon
-    crystal = get_structure(cif_path).from_file()
-    origin_crystal = init_structure(
-        crystal, magmom, super_matrix).init_magmom()
-    super_crystal = make_supercell(origin_crystal, np.diag(super_matrix))
-    writeucf = writeucf(super_crystal, origin_crystal, ucf_path, magmom)
-    writeucf.write_Unit_cell_size() 
-    writeucf.write_Unit_cell_Vector(dimension)
-    writeucf.write_Atoms_num(atom_type,mat, lc, hc)
-    writeucf.write_interactions(exchange, n, isotropic)
-
 ```
 
 ### Tips

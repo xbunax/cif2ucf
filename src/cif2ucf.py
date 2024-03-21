@@ -40,12 +40,3 @@ if __name__ == "__main__":
          isotropic,
          n,
          exchange)
-    # crystal = get_structure(cif_path).from_file()
-    # origin_crystal = init_structure(
-    #     crystal, magmom, super_matrix).init_magmom()
-    # super_crystal = make_supercell(origin_crystal, np.diag(super_matrix))
-    # writeucf = writeucf(super_crystal, origin_crystal, ucf_path, magmom)
-    # writeucf.write_Unit_cell_size()
-    # writeucf.write_Unit_cell_Vector(dimension)
-    # writeucf.write_Atoms_num(atom_type, mat, lc, hc)
-    # writeucf.write_interactions(exchange, n, isotropic)
