@@ -62,7 +62,7 @@ class neighbor:
             distance_dict = self.index_values_to_dict(distance_matrix[i])
             sorted_distance_dict = dict(
                 sorted(distance_dict.items(), key=lambda item: item[0]))
-            print(sorted_distance_dict)
+            # print(sorted_distance_dict)
             for j in range(len(neighbor_distance_list)):
                 neighbor_index_list[i-center_index[0]
                                     ][j] = np.array(sorted_distance_dict[neighbor_distance_list[j]])
@@ -80,5 +80,4 @@ class neighbor:
                     n += 1
                     index, position = self.get_relative_index_and_position(k)
                     neighbor_index_position.append([n, j, index, *position, i])
-        # print(neighbor_index_position)
         return neighbor_index_position

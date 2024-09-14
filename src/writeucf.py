@@ -1,11 +1,14 @@
 from neighbor import neighbor
+from structure import init_structure
 import numpy as np
 import ase
 
 
 class writeucf:
-    def __init__(self, super_crystal: ase.atoms.Atoms, origin_crystal: ase.atoms.Atoms, ucf_path: str, magmom: dict):
-        self.super_crystal = super_crystal
+    def __init__(self, origin_crystal: ase.atoms.Atoms, ucf_path: str, magmom: dict):
+        init = init_structure(
+            origin_crystal, magmom, super_matrix=[3, 3, 3])
+        self.super_crystal, self.distance = init.get_supercell_and_distance()
         self.origin_crystal = origin_crystal
         self.ucf_path = ucf_path
         self.magmom = magmom
@@ -44,6 +47,7 @@ class writeucf:
     def write_interactions(self, exchange: list, n: int, isotropic: str):
         exchange_list = neighbor(
             self.super_crystal, self.origin_crystal, self.magmom).get_neighbor_relative_index_and_position(n)
+        print(exchange_list)
         with open(self.ucf_path, "a") as f:
             f.writelines(
                 "#Interactions n exctype, id i j dx dy   dz        Jij\n")
