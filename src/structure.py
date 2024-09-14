@@ -19,37 +19,6 @@ class init_structure:
         self.super_matrix = super_matrix
         self.structure_without_magmom_atom = self.init_magmom()
 
-    def normalize_cell(self, cell: ase.Atoms) -> ase.Atoms:
-        """
-        对给定的原子结构进行坐标归一化，并返回新的 Atoms 对象。
-
-        参数:
-        - cell (Atoms): ASE 中的原子结构。
-
-        返回:
-        - Atoms: 归一化坐标后的新的原子结构。
-        """
-        # 提取原子坐标
-        positions = cell.get_positions()
-
-        # 找到坐标的最大值和最小值
-        min_coords = np.min(positions, axis=0)
-        max_coords = np.max(positions, axis=0)
-
-        # 避免除以零
-        diff = max_coords - min_coords
-        diff[diff == 0] = 1
-
-        # 归一化坐标到 [0, 1] 范围
-        normalized_positions = (positions - min_coords) / diff
-        normalized_positions = np.around(normalized_positions, 3)
-
-        # 创建一个新的 Atoms 对象，保留原有的元素信息
-        normalized_cell = cell.copy()
-        normalized_cell.set_positions(normalized_positions)
-
-        return normalized_cell
-
     def suppercell_with_lattice_constant(self):
         lattice_constant = self.structure_without_magmom_atom.cell.lengths()
         print(lattice_constant)
@@ -71,10 +40,6 @@ class init_structure:
         for index in sorted(indexes_to_remove, reverse=True):
             del self.crystal[index]
         structure_without_magmom = self.crystal
-        # structure_without_magmom_normal = self.normalize_cell(
-        #     structure_without_magmom)
-        # structure_without_magmom_change = self.change_position_cell(
-        #     structure_without_magmom_normal, [2**0.5/2, 2**0.5/2, 1])
         return structure_without_magmom
 
     def get_supercell_and_distance(self) -> [ase.atoms.Atoms, np.array]:

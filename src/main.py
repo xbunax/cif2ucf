@@ -1,9 +1,3 @@
-# from ase.build import make_supercell
-# from ase.visualize import view
-# from ase.io import write
-import numpy as np
-import matplotlib.pyplot as plt
-# from mpl_toolkits.mplot3d import Axes3D
 from writeucf import writeucf
 from structure import get_structure, init_structure
 
@@ -23,14 +17,14 @@ def main(cif_path: str, ucf_path: str, atom_type: int, mat: list, hc: list, lc: 
 
 
 if __name__ == "__main__":
-    cif_path = "../cif/Tm3Fe5O12.cif"
-    ucf_path = "../demo/Tm3Fe5O12.ucf"
-    atom_type = 1
-    mat = [0 for i in range(40)]
-    hc = [0 for i in range(40)]
-    lc = [0 for i in range(40)]
+    cif_path = "../cif/Mn2Au.cif"
+    ucf_path = "../demo/Mn2Au.ucf"
+    atom_type = 2
+    mat = [0, 1, 1, 0]
+    hc = [0, 1, 1, 0]
+    lc = [0, 1, 1, 0]
     dimension = 3
-    magmom = {"Fe": 3.0, "Tm": 0.0, "O": 0.0}
+    magmom = {"Mn": 3.0, "Au": 0.0}
     super_matrix = [3, 3, 3]
     isotropic = "isotropic"
     n = 1
