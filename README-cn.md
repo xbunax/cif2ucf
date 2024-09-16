@@ -9,7 +9,7 @@
 ***
 
 ### How to use
-+ 在`cif2ucf.py`中配置好参数后直接在终端运行`./cif2ucf.py`
++ 在`main.py`中配置好参数后直接在终端运行`./main.py`
 
 ```python 
     cif_path = "" # cif文件路径 

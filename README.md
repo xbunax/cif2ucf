@@ -11,7 +11,7 @@ After `git clone` this repo, using command `pip install -r requirements.txt` to 
 ***
 
 ### How to use
-+ config in `cif2ucf.py` then run `./cif2ucf.py`
++ config in `main.py` then run `./main.py`
 ```python
     cif_path = "" # cif file path
     ucf_path = "" #generate ucf file path
