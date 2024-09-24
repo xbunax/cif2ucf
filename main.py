@@ -1,5 +1,5 @@
-from writeucf import writeucf
-from structure import get_structure, init_structure
+from src.writeucf import writeucf
+from src.structure import get_structure, init_structure
 
 
 def main(cif_path: str, ucf_path: str, atom_type: int, mat: list, hc: list, lc: list,
@@ -17,8 +17,8 @@ def main(cif_path: str, ucf_path: str, atom_type: int, mat: list, hc: list, lc: 
 
 
 if __name__ == "__main__":
-    cif_path = "../cif/Mn2Au.cif"
-    ucf_path = "../demo/Mn2Au.ucf"
+    cif_path = "cif/Mn2Au.cif"
+    ucf_path = "demo/Mn2Au.ucf"
     atom_type = 2
     mat = [0, 1, 1, 0]
     hc = [0, 1, 1, 0]

@@ -1,4 +1,4 @@
-from structure import init_structure
+from src.structure import init_structure
 import numpy as np
 import ase
 

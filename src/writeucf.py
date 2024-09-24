@@ -1,5 +1,5 @@
-from neighbor import neighbor
-from structure import init_structure
+from src.neighbor import neighbor
+from src.structure import init_structure
 import numpy as np
 import ase
 
