@@ -22,7 +22,7 @@ After `git clone` this repo, using command `pip install -r requirements.txt` to 
     dimension = 3 
     isotropic="isotropic" # whether isotropic or not
     super_matrix = [3, 3, 3] #make supercell matrix  I only test [3,3,3]
-    exchange = [J_1 , J_2, J_3] #set exchange enerage
+    exchange = [J_1 , J_2, J_3] #set exchange energy
     n = 3 #set neighbor num if n=1 will only write the most neighbor atom 
     magmom = {"atom1": 3.0, "atom2": 0.0} #set atom magmon
 ```
